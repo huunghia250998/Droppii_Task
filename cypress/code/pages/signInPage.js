@@ -29,6 +29,10 @@ export class SignInPage extends BasePage {
     this.signInButton = 'button[type="submit"][class="action login primary"]:contains("Sign In")'
     this.welcomeMenu = 'header *> li[class="customer-welcome"] *> button[type="button"]'
     this.signOutBtn = 'div[class="customer-menu"] *> a[href*="https://magento.softwaretestingboard.com/customer/account/logout/"]'
+    this.errorEmail = '*[id="email-error"]'
+    this.alertPassword = 'div[role="alert"] *> *'
+
+
     ///// Sign Up
     this.aSignUp = 'header *> a[href*="https://magento.softwaretestingboard.com/customer/account/create/"'
     this.fistNameInput = 'input[id="firstname"]'
@@ -40,6 +44,7 @@ export class SignInPage extends BasePage {
     this.signUpButton = 'button[type="submit"][title="Create an Account"]'
     this.signUpSuccess = 'div[class="page messages"]> *'
     this.textSuccess = 'Thank you for registering with Main Website Store.'
+    
   }
   clickOnSignInBtn(){
     return utils.clickOn(this.aSignIn)
@@ -59,6 +64,29 @@ export class SignInPage extends BasePage {
     cy.get(this.welcomeMenu).click()
     cy.get(this.signOutBtn).eq(0).should('be.visible').click()
   }
+
+  fillInvalidData(){
+    cy.get(this.emailInputSI).click().clear().type("fakememail@")
+    cy.get(this.passwordInputSI).click().clear().type("No Password")
+    cy.get(this.signInButton).click()
+  }
+
+  verifyErrorEmailInvalid(){
+    cy.get(this.errorEmail).should('be.visible')
+    cy.get(this.errorEmail).invoke('text').should('eq','Please enter a valid email address (Ex: johndoe@domain.com).')
+  }
+
+  fillInvalidPassword(){
+    cy.get(this.emailInputSI).click().clear().type("user01@gmail.com")
+    cy.get(this.passwordInputSI).click().clear().type("123")
+    cy.get(this.signInButton).click()
+  }
+
+  verifyAlertPassword(){
+    cy.get(this.alertPassword).should('be.visible')
+    cy.get(this.alertPassword).invoke('text').should('eq','The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.')
+  }
+
 
 
 

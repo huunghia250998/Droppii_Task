@@ -30,6 +30,7 @@ export class SignUpPage extends BasePage {
     this.signUpButton = 'button[type="submit"][title="Create an Account"]'
     this.signUpSuccess = 'div[class="page messages"]> *'
     this.textSuccess = 'Thank you for registering with Main Website Store.'
+    this.errorEmail = '*[id="email_address-error"]'
   }
 
 
@@ -47,6 +48,20 @@ export class SignUpPage extends BasePage {
     cy.get(this.rePasswordInput).click().clear().type("No Password")
     cy.get(this.signUpButton).click()
   }
+  fillInvalidData(){
+    cy.get(this.fistNameInput).click().clear().type(userData.firstName)
+    cy.get(this.lastNameInput).click().clear().type(userData.lastName)
+    cy.get(this.emailInput).click().clear().type("fakememail@")
+    cy.get(this.passwordInput).click().clear().type("No Password")
+    cy.get(this.rePasswordInput).click().clear().type("No Password")
+    cy.get(this.signUpButton).click()
+  }
+
+  verifyErrorEmailInvalid(){
+    cy.get(this.errorEmail).should('be.visible')
+    cy.get(this.errorEmail).invoke('text').should('eq','Please enter a valid email address (Ex: johndoe@domain.com).')
+  }
+
   verifySignUpSuccess(){
     cy.get(this.signUpSuccess).contains(this.textSuccess).should('be.visible')
     //cy.get('div[class="page messages"] > *').should('contain.text',"Thank you for registering with Main Website Store.")

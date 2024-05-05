@@ -35,4 +35,40 @@ describe("SignIn Function Verify", () => {
     signInPage.verifySignInSuccess()
 
   });
+
+  it("SignIn Error Email", () => {
+    // Invoke home page
+    homePage.openWeb()
+
+    // Invoke sign up page
+    signInPage.clickOnSignInBtn()
+
+    // Verify invoke signup page successfully
+    signInPage.verifySignInPage()
+
+    // Fill data user
+    signInPage.fillInvalidData()
+
+    // Verify Sign Up Successfully
+    signInPage.verifyErrorEmailInvalid()
+
+  });
+
+  it("SignIn Incorrect Password", () => {
+    // Invoke home page
+    homePage.openWeb()
+
+    // Invoke sign up page
+    signInPage.clickOnSignInBtn()
+
+    // Verify invoke signup page successfully
+    signInPage.verifySignInPage()
+
+    // Fill data user
+    signInPage.fillInvalidPassword()
+
+    // Verify Sign Up Successfully
+    signInPage.verifyAlertPassword()
+
+  });
 });

@@ -23,4 +23,20 @@ describe("SignUp Function Verify", () => {
     signUpPage.verifySignUpSuccess()
   });
 
+  it("Sign Up Negative Case", () => {
+    // Invoke home page
+    homePage.openWeb()
+    // Invoke sign up page
+    signUpPage.clickOnSignUpBtn()
+   
+    // Verify invoke signup page successfully
+    signUpPage.verifySignUpPage()
+
+    // Fill data invalid
+    signUpPage.fillInvalidData()
+
+    // Verify Error Message
+    signUpPage.verifyErrorEmailInvalid()
+  });
+
 });
