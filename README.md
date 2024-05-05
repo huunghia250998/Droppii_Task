@@ -1,5 +1,7 @@
 "# Droppii_Task" 
+
 Command to setup: npm install
+
 Command to run cypress: npm run open
 
 -----------------------------------
